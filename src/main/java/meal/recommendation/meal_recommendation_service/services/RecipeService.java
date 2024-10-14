@@ -63,7 +63,7 @@ public class RecipeService {
         Root root = objectMapper.readValue(jsonResponse, Root.class);
         List<Recipe> recipes = root.getHits().stream()
                 .map(Hit::getRecipe)  // Extract Recipe object from each Hit
-                .toList(); 
+                .collect(Collectors.toList()); 
         return recipes;
     }
 

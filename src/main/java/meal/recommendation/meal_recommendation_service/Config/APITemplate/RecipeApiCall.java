@@ -1,6 +1,8 @@
 package meal.recommendation.meal_recommendation_service.Config.APITemplate;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +39,6 @@ public class RecipeApiCall extends APICallTemplate <List<Recipe>> {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         Root root = objectMapper.readValue(response, Root.class);
-        return root.getHits().stream().map(Hit::getRecipe).toList();
+        return root.getHits().stream().map(Hit::getRecipe).collect(Collectors.toList());
     }
 }
