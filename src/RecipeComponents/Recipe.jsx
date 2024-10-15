@@ -103,7 +103,7 @@ function Recipe(props) {
         <div className="container">
             <SearchBar fetchRecipes={fetchRecipes} isMobile={isMobile} query={query} setQuery={setQuery} cuisine={cuisine} setCuisine={setCuisine} isOffline={isOffline} handleToggle={handleToggle} />
             {loading && <Loading />}
-            <break/>
+            <br/>
             {recipes.length > 0 && 
             <SearchResult   query={query} timeTaken={timeTaken} recipes={recipes}  />
             }
