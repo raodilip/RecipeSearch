@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import meal.recommendation.meal_recommendation_service.API.Responses.Recipe;
 import meal.recommendation.meal_recommendation_service.Requests.RecipeRequest;
 import meal.recommendation.meal_recommendation_service.services.RecipeService;
+
 @CrossOrigin(origins = "http://localhost:3000") 
 @RestController
+@RequestMapping("")
 public class MealController {
     private final RecipeService recipeService;
 

@@ -29,24 +29,12 @@ public class RecipeService {
 
     @Cacheable(value = "recipes", key = "#query + '-' + #cuisine")
     public List<Recipe> fetch(String query, String cuisine) throws Exception {
-        //String url = buildUrl(query, cuisine);
-        /*String url = new RecipeRequestBuilder(edamamConfig.getAppId(), edamamConfig.getAppKey())
-                    .setQuery(query)
-                    .setCuisine(cuisine)
-                    .build();
-        System.out.println("url"+url);
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return parseResponse(response.getBody());*/
+       
         RecipeApiCall apiCall = new RecipeApiCall(query, cuisine, edamamConfig);
         return apiCall.makeApiCall();
     }
 
-    /*private String buildUrl(String query, String cuisine) {
-        return "https://api.edamam.com/api/recipes/v2?type=public&q=" + query
-                + "&app_id=" + edamamConfig.getAppId()
-                + "&app_key=" + edamamConfig.getAppKey()
-                + "&cuisineType=" + cuisine;
-    }*/
+
 
     private List<Recipe> parseResponse(String jsonResponse) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -67,15 +55,6 @@ public class RecipeService {
         return recipes;
     }
 
-   /* @Cacheable(value = "recipes", key = "#query + '-' + #cuisine")
-    public  List<Recipe> fetch(String query, String cuisine) throws Exception {
-        RestTemplate restTemplate = new RestTemplate();
-        String edamamUrl = "https://api.edamam.com/api/recipes/v2?type=public&q="+query+"&app_id="+appId+"&app_key="+appKey+"&cuisineType="+cuisine+"";
-        //String edamamUrl = "";
-        ResponseEntity<String> response = restTemplate.getForEntity(edamamUrl, String.class);
-        String healthData = response.getBody();
-        return getRecipe(healthData);
-    }*/
 
     @CacheEvict(value = "recipes", key = "#query + '-' + #cuisine")
     public void clearRecipeFromCache(String query, String cuisine) {
