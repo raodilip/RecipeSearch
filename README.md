@@ -1,4 +1,5 @@
-![](https://github.com/raodilip/Recipe-Search-FrontEnd/blob/master/Recipe-Search.gif)
+#Project Demo
+     ![](https://github.com/raodilip/Recipe-Search-FrontEnd/blob/master/Recipe-Search.gif)
 
 1. Clone the repository:
      ```bash
