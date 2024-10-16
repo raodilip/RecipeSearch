@@ -15,6 +15,7 @@ This project is a **Meal Recommendation Service** built using **Spring Boot** fo
 ## Key Features
 
 - RESTful APIs for managing and generating recipes.
+- This project uses Spring Cache to handle the caching layer.
 - Swagger integration for API documentation.
 - Separation of frontend (React) and backend (Spring Boot) services.
 - Docker support for easy containerization and deployment.
@@ -36,10 +37,6 @@ The frontend React application communicates with the backend via REST API calls 
 - **Template Method Pattern - Handling API Calls**: Applied in making generic API call.We can extend from APICallTemplate.java class for specific API Call.  
 
 
-## Flow Diagram
-
-The flow of the application follows this process:
-
 1. **User Interaction**:
     - The user requests meal recommendations through the React frontend.
     - The request is sent to the Spring Boot backend.
@@ -52,7 +49,10 @@ The flow of the application follows this process:
 3. **Frontend Process**:
     - The React frontend processes the response and displays the meal recommendations to the user.
 
-You can view the flow diagram created using [draw.io](https://draw.io).
+## Flow Diagram
+
+The flow of the application follows this process:
+![Flow Diagram](images/FlowDiagram.png)
 
 ## API Endpoints
 
@@ -112,4 +112,17 @@ To run the tests for the backend, use:
 
 ```bash
 mvn test
+```
+
+## Building Docker Image
+
+```bash
+docker build -t <your-docker-name> .
+```
+
+## Run Docker Container
+
+```bash
+docker run -p 8080:8080 meal-recommendation-backend
+
 ```
