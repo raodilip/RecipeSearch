@@ -123,6 +123,6 @@ docker build -t <your-docker-name> .
 ## Run Docker Container
 
 ```bash
-docker run -p 8080:8080 meal-recommendation-backend
+docker run -p 8080:8080 <your-docker-name>
 
 ```
