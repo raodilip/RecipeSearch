@@ -60,7 +60,7 @@ The backend exposes the following RESTful API endpoints:
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST    | `/api/recipes`  | Retrieves a list of Recipes|
+| GET    | `/api/recipes`  | Retrieves a list of Recipes|
 
 The APIs are documented using **Swagger**. You can access the Swagger UI at: http://localhost:8080/swagger-ui/index.html
 
