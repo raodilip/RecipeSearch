@@ -1,7 +1,7 @@
 import React from 'react';
 import OfflineToggle from './OfflineToggle'
 
-function SearchBar({ fetchRecipes, isMobile, query, setQuery, cuisine, setCuisine, isOffline, handleToggle }) {
+function SearchBar({ fetchRecipes, isMobile, mealType, setmealType, cuisine, setCuisine, isOffline, handleToggle }) {
     return (
     <>
     <h1 className="text-center mt-5">Recipe Search</h1>
@@ -12,7 +12,7 @@ function SearchBar({ fetchRecipes, isMobile, query, setQuery, cuisine, setCuisin
         }}>
             <div className="mb-3 col-auto">
                 <label htmlFor="query" className="form-label">Enter a recipe name:</label>
-                <input type="text" id="query" className="form-control" value={query} onChange={e => setQuery(e.target.value)} placeholder="e.g., Chicken" required />
+                <input type="text" id="query" className="form-control" value={mealType} onChange={e => setmealType(e.target.value)} placeholder="e.g., Chicken" required />
             </div>
 
             {

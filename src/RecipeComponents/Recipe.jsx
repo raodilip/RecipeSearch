@@ -5,7 +5,7 @@ import SearchResult from './SearchResult.jsx';
 import SearchBar from './SearchBar';
 
 function Recipe(props) {
-    const [query, setQuery] = useState('');
+    const [mealType, setmealType] = useState('');
     const [cuisine, setCuisine] = useState('American')
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(false); // Loading state
@@ -29,41 +29,26 @@ function Recipe(props) {
 
     useEffect(() => {
         setRecipes([]);
-    }, [query, cuisine])
+    }, [mealType, cuisine])
 
     const fetchRecipes = async (e) => {
         if (e)
             e.preventDefault();
         setRecipes([]);
-        if (!isOffline && query !== '' && cuisine !== '') {
+        if (!isOffline && mealType !== '' && cuisine !== '') {
             setLoading(true);
             try {
-                const requestBody = {
-                    query: query,
-                    cuisine: cuisine
-                };
-
                 const startTime = performance.now();
-                // Send POST request with JSON body
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestBody),
-                    mode: 'cors',
-                    // Send the body as JSON
-                });
-                // const response = await fetch(`http://localhost:8080/api/recipes?query=${query}&cuisine=${cuisine}`);
+                 const response = await fetch(`http://localhost:8080/api/recipes?mealType=${mealType}&cuisine=${cuisine}`);
                 const data = await response.json();
                 const endTime = performance.now();
                 setTimeTaken((endTime - startTime).toFixed(2));
                 setRecipes(data);
-                localStorage.setItem(`${query.toLowerCase()}-${cuisine.toLowerCase()}`, JSON.stringify(data));
+                localStorage.setItem(`${mealType.toLowerCase()}-${cuisine.toLowerCase()}`, JSON.stringify(data));
             } catch (error) {
                 console.error('Error fetching recipes:', error);
                 if (isOffline) {
-                    const offlineData = localStorage.getItem(`${query}-${cuisine}`);
+                    const offlineData = localStorage.getItem(`${mealType}-${cuisine}`);
                     if (offlineData) {
                         setRecipes(JSON.parse(offlineData));
                     }
@@ -74,7 +59,7 @@ function Recipe(props) {
         }
 
         else if (isOffline) {
-            const offlineData = localStorage.getItem(`${query.toLowerCase()}-${cuisine.toLowerCase()}`);
+            const offlineData = localStorage.getItem(`${mealType.toLowerCase()}-${cuisine.toLowerCase()}`);
             if (offlineData) {
                 setRecipes(JSON.parse(offlineData));
             }
@@ -86,7 +71,7 @@ function Recipe(props) {
             fetchRecipes();
         } else {
             const startTime = performance.now();
-            const offlineData = localStorage.getItem(`${query.toLowerCase()}-${cuisine.toLowerCase()}`);
+            const offlineData = localStorage.getItem(`${mealType.toLowerCase()}-${cuisine.toLowerCase()}`);
             if (offlineData) {
                 setRecipes(JSON.parse(offlineData));
             }
@@ -101,11 +86,11 @@ function Recipe(props) {
 
     return (
         <div className="container">
-            <SearchBar fetchRecipes={fetchRecipes} isMobile={isMobile} query={query} setQuery={setQuery} cuisine={cuisine} setCuisine={setCuisine} isOffline={isOffline} handleToggle={handleToggle} />
+            <SearchBar fetchRecipes={fetchRecipes} isMobile={isMobile} mealType={mealType} setmealType={setmealType} cuisine={cuisine} setCuisine={setCuisine} isOffline={isOffline} handleToggle={handleToggle} />
             {loading && <Loading />}
             <br/>
             {recipes.length > 0 && 
-            <SearchResult   query={query} timeTaken={timeTaken} recipes={recipes}  />
+            <SearchResult   mealType={mealType} timeTaken={timeTaken} recipes={recipes}  />
             }
         </div>
     );
