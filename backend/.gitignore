@@ -1,0 +1,58 @@
+# Java and Gradle/Maven
+*.class
+*.jar
+*.war
+*.ear
+*.class
+*.log
+*.iml
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.lastUpdated
+
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Eclipse
+.metadata/
+bin/
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+.classpath
+.project
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Other IDE files
+*.user
+*.sublime-workspace
+*.sublime-project
+
+# Configuration files
+application.properties
+application.yml
+*.properties
+*.yml
+*.yaml
