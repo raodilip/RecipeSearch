@@ -73,18 +73,6 @@ The APIs are documented using **Swagger**. You can access the Swagger UI at: [Sw
 git clone https://github.com/raodilip/Recipe-Search.git
 cd Recipe-Search
 ```
-### 2. Set Up Environment Variables
-
-#### Frontend (React)
-
-1. Create an `.env` file in the root of the frontend directory with the following content:
-
-   ```plaintext
-   REACT_APP_RECIPE_ENDPOINT='http://localhost:8080/api/recipes'
-   ```
-
- Here's the content from section 2 onwards formatted correctly in Markdown:
-
 
 ### 2. Set Up Environment Variables
 
@@ -127,6 +115,7 @@ cd Recipe-Search
    ```plaintext
    spring.application.name=meal-recommendation-service
    spring.cache.type=simple
+   # Sign up to consume edamam API
    edamam.appId=Your API - ID
    edamam.appKey=Your API - KEY
    springdoc.api-docs.path=/api-docs
@@ -158,18 +147,46 @@ To run the tests for the backend, use:
 mvn test
 ```
 
-## Building Docker Image
+## Building Docker Images
+## Backend (Springboot)
 
-To build the Docker image, run:
+1. Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+2. To build the Docker image, run:
 
 ```bash
 docker build -t <your-docker-name> .
 ```
 
-## Run Docker Container
-
-To run the Docker container, execute:
+3. To run the Docker container, execute:
 
 ```bash
 docker run -p 8080:8080 <your-docker-name>
 ``` 
+
+
+### Frontend (React)
+
+To build the Docker image for the frontend, follow these steps:
+
+1. Navigate to the frontend directory:
+
+   ```bash
+   cd frontend
+   ```
+
+2. Build the Docker image:
+
+   ```bash
+   docker build -t <your-docker-name>-frontend .
+   ```
+
+3. To run the Docker container for the frontend, execute:
+
+   ```bash
+   docker run -p 3000:3000 <your-docker-name>-frontend
+   ```
