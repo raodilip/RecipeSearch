@@ -1,14 +1,32 @@
-# Step 1: Use an official OpenJDK base image
-FROM openjdk:17-jdk-slim
+# Step 1: Build the React application
+FROM node:18-alpine AS build
 
-# Step 2: Set a working directory inside the container
+# Set working directory inside the container
 WORKDIR /app
 
-# Step 3: Add the jar file to the container
-COPY target/meal-recommendation-service-0.0.1-SNAPSHOT.jar app.jar
+# Copy package.json and package-lock.json (or yarn.lock)
+COPY package*.json ./
 
-# Step 4: Expose the port that your Spring Boot app runs on (default: 8080)
-EXPOSE 8080
+# Install dependencies
+RUN npm install
 
-# Step 5: Command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Copy the rest of the application’s source code
+COPY . .
+
+# Build the application for production
+RUN npm run build
+
+# Step 2: Serve the React app with nginx
+FROM nginx:stable-alpine
+
+# Remove the default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy the React build files from the previous stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose the port nginx is running on
+EXPOSE 80
+
+# Start nginx when the container launches
+CMD ["nginx", "-g", "daemon off;"]

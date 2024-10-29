@@ -4,28 +4,34 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/raodilip/Recipe-Search-Backend.git'
+                git url: 'https://github.com/raodilip/Recipe-Search-FrontEnd.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                dir('frontend') {
+                    sh 'npm install'
+                }
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
+                dir('frontend') {
+                    sh 'npm run build'
+                }
             }
         }
         stage('Dockerize') {
             steps {
-                sh 'docker build -t backend-image .'
+                dir('frontend') {
+                    sh 'docker build -t frontend-image .'
+                }
             }
         }
         stage('Deploy') {
             steps {
                 // Use docker-compose or deploy to Kubernetes
-                sh 'docker-compose up -d backend'
+                sh 'docker-compose up -d frontend'
             }
         }
     }
